@@ -1,0 +1,7 @@
+{
+  "x": 108,
+  "y": 82,
+  "width": 424,
+  "height": 316,
+  "_note": "Tune x/y/width/height so this rect covers the dark screen area of the bezel PNG. Run demo.py --calibrate to see it overlaid in red. No regeneration needed."
+}
