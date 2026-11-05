@@ -1,0 +1,89 @@
+{
+  "1": {
+    "_meta": {"title": "Load Checkpoint"},
+    "class_type": "CheckpointLoaderSimple",
+    "inputs": {
+      "ckpt_name": "Realistic_Vision_V5.1_fp16-no-ema.safetensors"
+    }
+  },
+  "2": {
+    "_meta": {"title": "Load LoRA (Retro Game Art)"},
+    "class_type": "LoraLoader",
+    "inputs": {
+      "model": ["1", 0],
+      "clip": ["1", 1],
+      "lora_name": "SD15Lora-RetroGameArt-v1.1.safetensors",
+      "strength_model": 1.15,
+      "strength_clip": 1.15
+    }
+  },
+  "3": {
+    "_meta": {"title": "CLIP Text Encode (Positive Prompt)"},
+    "class_type": "CLIPTextEncode",
+    "inputs": {
+      "clip": ["2", 1],
+      "text": "R3TR0, point and click adventure game background, interior castle throne room, detailed, painterly"
+    }
+  },
+  "4": {
+    "_meta": {"title": "CLIP Text Encode (Negative Prompt)"},
+    "class_type": "CLIPTextEncode",
+    "inputs": {
+      "clip": ["2", 1],
+      "text": "bad anatomy, deformed, medieval armor, modern, photo, 3d render, blurry"
+    }
+  },
+  "5": {
+    "_meta": {"title": "Empty Latent Image (512x384 — 4:3)"},
+    "class_type": "EmptyLatentImage",
+    "inputs": {
+      "width": 512,
+      "height": 384,
+      "batch_size": 1
+    }
+  },
+  "6": {
+    "_meta": {"title": "KSampler"},
+    "class_type": "KSampler",
+    "inputs": {
+      "model": ["2", 0],
+      "positive": ["3", 0],
+      "negative": ["4", 0],
+      "latent_image": ["5", 0],
+      "seed": 0,
+      "control_after_generate": "randomize",
+      "steps": 25,
+      "cfg": 3.5,
+      "sampler_name": "uni_pc",
+      "scheduler": "sgm_uniform",
+      "denoise": 1.0
+    }
+  },
+  "7": {
+    "_meta": {"title": "VAE Decode"},
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": ["6", 0],
+      "vae": ["1", 2]
+    }
+  },
+  "8": {
+    "_meta": {"title": "Downscale to 320x240 (Sierra resolution)"},
+    "class_type": "ImageScale",
+    "inputs": {
+      "image": ["7", 0],
+      "upscale_method": "nearest-exact",
+      "width": 320,
+      "height": 240,
+      "crop": "disabled"
+    }
+  },
+  "9": {
+    "_meta": {"title": "Save Image"},
+    "class_type": "SaveImage",
+    "inputs": {
+      "images": ["8", 0],
+      "filename_prefix": "retro_pixel"
+    }
+  }
+}

@@ -1,0 +1,38 @@
+# ── Stability Matrix app binary (re-downloaded by bootstrap.ps1) ──────────────
+StabilityMatrix.exe
+
+# ── Stability Matrix source code / zip (not needed) ──────────────────────────
+StabilityMatrix/
+StabilityMatrix-*.zip
+packages/
+
+# ── All installed packages, models, and generated images ──────────────────────
+# This folder is created by Stability Matrix and contains ComfyUI + all weights.
+# It is gigabytes in size and must NOT be committed.
+data/
+
+# ── Generated output images ───────────────────────────────────────────────────
+output/*.png
+output/*.jpg
+output/*.webp
+# Keep the output folder itself tracked so it exists on fresh clones
+!output/.gitkeep
+
+# ── Model weight files (anywhere in the tree, just in case) ───────────────────
+*.safetensors
+*.ckpt
+*.pt
+*.bin
+*.gguf
+
+# ── Python ────────────────────────────────────────────────────────────────────
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# ── OS noise ──────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
