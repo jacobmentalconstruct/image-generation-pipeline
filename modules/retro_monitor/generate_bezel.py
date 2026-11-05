@@ -38,12 +38,10 @@ from pipeline.styles import build_workflow
 # delineated dark screen area that RetroMonitorFrame can overlay.
 # ------------------------------------------------------------------
 _PROMPT = (
-    "retro CRT computer monitor, 1980s IBM PC era, front view, perfectly centered, "
-    "beige cream plastic housing, thick rectangular bezel, "
-    "screen is a dark flat black rectangle inset in the center, "
-    "subtle green phosphor glow on screen edges, power LED indicator, "
-    "brand label below screen, isolated on solid black background, "
-    "product photography style, clean hard edges, no reflections"
+    "retro CRT computer monitor, 1980s, straight-on front view, centered, "
+    "beige cream plastic bezel, dark black flat screen rectangle in the center, "
+    "simple clean product photo, pure black background, no scene no room no clutter, "
+    "monitor only, symmetrical, hard edges, pixel art style"
 )
 
 # Screen rect that works well for a centered 640×480 monitor illustration.
@@ -75,8 +73,9 @@ def generate(style: str, out_path: Path, timeout: float) -> Path:
     if not saved:
         raise RuntimeError("Generation finished but no images were returned.")
 
-    # Rename to the canonical bezel filename
+    # Copy/replace the canonical bezel filename
     if saved[0] != out_path:
+        out_path.unlink(missing_ok=True)
         saved[0].rename(out_path)
     print(f"Bezel:   {out_path}")
     return out_path
@@ -84,10 +83,13 @@ def generate(style: str, out_path: Path, timeout: float) -> Path:
 
 def write_rect(rect_path: Path) -> None:
     rect_path.parent.mkdir(parents=True, exist_ok=True)
+    if rect_path.exists():
+        print(f"Rect:    {rect_path}  (kept existing — delete to reset to defaults)")
+        return
     rect_path.write_text(
         json.dumps(_DEFAULT_RECT, indent=2), encoding="utf-8"
     )
-    print(f"Rect:    {rect_path}")
+    print(f"Rect:    {rect_path}  (written with defaults — tune to match your image)")
     print(
         "\nOpen the demo, inspect the monitor image, then adjust x/y/width/height\n"
         "in screen_rect.json so the rectangle covers the dark screen area.\n"
