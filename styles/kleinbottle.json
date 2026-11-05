@@ -1,0 +1,16 @@
+{
+  "_description": "KleinBOTTLE app style — dial in and lock settings here.",
+  "_status": "placeholder — run dial_in.py to tune, then commit the final values",
+  "workflow": "sd15_retro_pixel.json",
+  "prompt_prefix": "R3TR0, point and click adventure game background,",
+  "prompt_suffix": "",
+  "negative_prompt": "modern, photo, 3d render, blurry, bad anatomy, deformed",
+  "lora_strength": 1.15,
+  "cfg": 3.5,
+  "steps": 25,
+  "width": 512,
+  "height": 384,
+  "output_width": 320,
+  "output_height": 240,
+  "filename_prefix": "kleinbottle"
+}
