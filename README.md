@@ -85,38 +85,76 @@ python generate_image.py "<prompt>"
     --timeout 300                               # max seconds to wait
 ```
 
-### Calling from another application
+### Integrating into another application
 
-From any Python app (KleinBOTTLE, ProjectMapper, etc.):
+There are three patterns. Pick the one that fits your app.
+
+### Pattern 1 — pip install (recommended)
+
+Install the pipeline as a local package once; import it anywhere.
+
+```bash
+# run once per environment, from anywhere
+pip install -e "C:/path/to/image-generation-pipeline"
+```
+
+```python
+from pipeline import generate
+
+# one-line call, returns a list of saved Path objects
+paths = generate("a wizard's library at candlelight", style="kleinbottle")
+print(paths[0])  # e.g. PosixPath('output/kleinbottle_00001_.png')
+```
+
+### Pattern 2 — sys.path import (no install needed)
+
+```python
+import sys
+sys.path.insert(0, r"C:\path\to\image-generation-pipeline")
+
+from pipeline import generate
+paths = generate("a harbour at dusk", style="projectmapper", out_dir="./assets")
+```
+
+### Pattern 3 — subprocess (language-agnostic)
+
+Works from any language. Fire and forget; check the output directory.
 
 ```python
 import subprocess
 subprocess.run([
-    "python", "path/to/generate_image.py",
-    "R3TR0, interior of a wizard's library, candlelight, adventure game background",
-    "--out", "./assets/backgrounds"
-])
+    "python",
+    r"C:\path\to\image-generation-pipeline\generate_image.py",
+    "a harbour at dusk",
+    "--style", "projectmapper",
+    "--out", "./assets",
+], check=True)
 ```
 
-Or import the helpers directly:
+### Per-call setting overrides
+
+Any parameter from the style profile can be overridden for a single call
+without touching the profile file:
 
 ```python
-import json, uuid
-from pathlib import Path
-from generate_image import queue_prompt, wait_for_completion, download_image, set_prompt_text
+from pipeline import generate
 
-workflow = json.loads(Path("workflows/sd15_retro_pixel.json").read_text())
-workflow  = set_prompt_text(workflow, "R3TR0, your scene here")
-prompt_id = queue_prompt(workflow, str(uuid.uuid4()))
-result    = wait_for_completion(prompt_id)
-
-for node_out in result["outputs"].values():
-    for img in node_out.get("images", []):
-        path = download_image(img["filename"], img.get("subfolder",""), img.get("type","output"), Path("./output"))
-        print(f"Saved: {path}")
+# use the kleinbottle style but bump CFG and steps for this one image
+paths = generate(
+    "a dramatic throne room",
+    style="kleinbottle",
+    cfg=5.0,
+    steps=35,
+    lora_strength=1.3,
+)
 ```
 
-The service is an abstraction — treat it like Ollama for language models. Applications request images without knowing anything about the underlying model or GPU.
+The profile file is never modified. The override applies to this call only.
+
+---
+
+The service is an abstraction — treat it like Ollama for language models.
+Applications describe *what* they want; the pipeline handles the model, GPU, and style.
 
 ---
 

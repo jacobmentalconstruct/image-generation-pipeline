@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "image-generation-pipeline"
+version = "0.1.0"
+description = "Local ComfyUI image-generation pipeline with per-app style profiles"
+requires-python = ">=3.8"
+# No third-party runtime dependencies — stdlib only.
+# ComfyUI must be running separately (see README).
+
+[project.scripts]
+generate-image = "generate_image:main"
+dial-in        = "dial_in:main"
+
+[tool.setuptools.packages.find]
+include = ["pipeline*"]
