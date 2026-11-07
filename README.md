@@ -151,6 +151,43 @@ paths = generate(
 
 The profile file is never modified. The override applies to this call only.
 
+### ASCII art conversion
+
+Convert any image to a character grid using gradient-descent glyph fitting.
+No ComfyUI connection needed — works offline with PIL + PyTorch only.
+
+```python
+from pipeline import to_ascii
+
+art = to_ascii("output/scene.png", width=120, iterations=200)
+print(art)
+```
+
+`to_ascii` returns a plain string (newline-separated rows, each `width` chars
+wide). Pass it straight to a terminal, a text widget, or write it to a file.
+
+```python
+# wider output, faster (fewer optimisation steps)
+art = to_ascii("output/scene.png", width=160, iterations=100)
+
+# narrow thumbnail, high quality
+art = to_ascii("output/scene.png", width=60, iterations=400)
+```
+
+**Parameters**
+
+| Name | Default | Description |
+|------|---------|-------------|
+| `image_path` | — | Path to any PIL-readable image (PNG, JPEG, …) |
+| `width` | `120` | Character columns in the output |
+| `iterations` | `200` | Gradient-descent steps — more = sharper fit |
+| `charset` | `"@%#*+=-:. "` | Characters to choose from, dark → light |
+
+The converter tiles the image into monospace glyph cells, rasterises each
+character in `charset` into a luminance atlas, then runs Adam to minimise the
+MSE between the composed glyphs and the target patches.  Final characters are
+the argmax of the trained logits — a hard assignment with a soft warm-start.
+
 ---
 
 The service is an abstraction — treat it like Ollama for language models.
