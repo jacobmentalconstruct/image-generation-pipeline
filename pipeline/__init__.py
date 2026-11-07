@@ -18,8 +18,23 @@ import uuid
 from pathlib import Path
 
 from .client import collect_images, queue_prompt, wait_for_completion
-from .convert import to_ascii as to_ascii
 from .styles import load_style, load_workflow_for_style, apply_style
+
+
+def to_ascii(
+    image_path: "str | Path",
+    width: int = 120,
+    iterations: int = 200,
+    charset: str = "@%#*+=-:. ",
+) -> str:
+    """
+    Convert an image to ASCII art via gradient descent.
+
+    Lazy wrapper — imports convert (which requires torch + numpy) only when
+    called, so plain image generation works without those ML dependencies.
+    """
+    from .convert import to_ascii as _impl
+    return _impl(image_path, width=width, iterations=iterations, charset=charset)
 
 
 def generate(
