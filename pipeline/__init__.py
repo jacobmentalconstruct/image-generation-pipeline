@@ -1,20 +1,24 @@
 """
 image-generation-pipeline — public API
 
-The one function external applications need:
+External applications need two functions:
 
-    from pipeline import generate
+    from pipeline import generate, to_ascii
 
     path = generate("a tavern at night", style="kleinbottle")
     paths = generate("a forest", style="default", out_dir="./assets", cfg=2.5)
 
-ComfyUI must be running at http://127.0.0.1:8188.
+    text = to_ascii("render.png", width=120, iterations=200)
+
+ComfyUI must be running at http://127.0.0.1:8188 for `generate`.
+`to_ascii` works offline; it only requires PIL and PyTorch.
 """
 
 import uuid
 from pathlib import Path
 
 from .client import collect_images, queue_prompt, wait_for_completion
+from .convert import to_ascii as to_ascii
 from .styles import load_style, load_workflow_for_style, apply_style
 
 
