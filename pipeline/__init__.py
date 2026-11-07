@@ -18,7 +18,15 @@ import uuid
 from pathlib import Path
 
 from .client import collect_images, queue_prompt, wait_for_completion
-from .convert import to_ascii as to_ascii
+def to_ascii(
+    image_path: "str | Path",
+    width: int = 120,
+    iterations: int = 200,
+    charset: str = "@%#*+=-:. ",
+) -> str:
+    """Lazy — imports convert (requires torch + numpy) only when called."""
+    from .convert import to_ascii as _impl
+    return _impl(image_path, width=width, iterations=iterations, charset=charset)
 from .styles import load_style, load_workflow_for_style, apply_style
 
 
