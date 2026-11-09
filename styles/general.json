@@ -1,0 +1,15 @@
+{
+  "_description": "General-purpose SD 1.5 generation — no game-background prompt or retro-art LoRA.",
+  "workflow": "sd15_retro_pixel.json",
+  "prompt_prefix": "",
+  "prompt_suffix": "",
+  "negative_prompt": "room, interior, windows, architecture, landscape, village, castle, game background, pixel art, blurry, bad anatomy, deformed",
+  "lora_strength": 0.0,
+  "cfg": 7.0,
+  "steps": 30,
+  "width": 512,
+  "height": 512,
+  "output_width": 512,
+  "output_height": 512,
+  "filename_prefix": "general"
+}

@@ -1,0 +1,15 @@
+{
+  "_description": "Isolated pixel-art sprites — square canvas, keyed background, and a restrained Retro Game Art LoRA.",
+  "workflow": "sd15_retro_pixel.json",
+  "prompt_prefix": "2D video game sprite, clean readable silhouette",
+  "prompt_suffix": "isolated on a flat magenta background",
+  "negative_prompt": "room, interior, windows, architecture, landscape, village, castle, scenery, ground, horizon, crowd, multiple characters, cropped, text, watermark, blurry, deformed",
+  "lora_strength": 0.65,
+  "cfg": 7.5,
+  "steps": 30,
+  "width": 512,
+  "height": 512,
+  "output_width": 512,
+  "output_height": 512,
+  "filename_prefix": "sprite"
+}
