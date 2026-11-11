@@ -1,0 +1,15 @@
+{
+  "_description": "Wide 1990s PC adventure-game exteriors — landscapes, wilderness, distant architecture, settlements, and open playable environments.",
+  "workflow": "sd15_retro_pixel.json",
+  "prompt_prefix": "1990s PC point-and-click adventure game exterior, wide environmental establishing scene,",
+  "prompt_suffix": "layered foreground midground and distant background, clear navigable foreground, atmospheric depth, no user interface, no text",
+  "negative_prompt": "modern photo, 3d render, enclosed room, close-up portrait, character sheet, user interface, dialogue box, watermark, blurry, deformed",
+  "lora_strength": 1.05,
+  "cfg": 4.5,
+  "steps": 28,
+  "width": 512,
+  "height": 256,
+  "output_width": 512,
+  "output_height": 256,
+  "filename_prefix": "adventure_exterior"
+}

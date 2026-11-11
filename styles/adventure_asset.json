@@ -1,0 +1,15 @@
+{
+  "_description": "Detailed standalone 1990s adventure-game asset illustrations — no scene, icon badge, or chroma-key backdrop.",
+  "workflow": "sd15_retro_pixel.json",
+  "prompt_prefix": "1990s PC point-and-click adventure game pixel-art illustration, detailed depicted object or character,",
+  "prompt_suffix": "natural proportions, simple unobtrusive dark neutral backdrop, no user interface, no text",
+  "negative_prompt": "icon, logo, symbol, emblem, badge, circular frame, white circle, magenta background, chroma key, border, scenery, landscape, room, ground plane, crowd, cropped, watermark, blurry, deformed",
+  "lora_strength": 0.9,
+  "cfg": 5.5,
+  "steps": 30,
+  "width": 512,
+  "height": 512,
+  "output_width": 512,
+  "output_height": 512,
+  "filename_prefix": "adventure_asset"
+}

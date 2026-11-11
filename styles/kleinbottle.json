@@ -1,7 +1,7 @@
 {
   "_description": "KleinBOTTLE room images — wide 2:1 cinematic pixel art for the room panel.",
   "workflow": "sd15_retro_pixel.json",
-  "prompt_prefix": "R3TR0, point and click adventure game background, wide angle room view,",
+  "prompt_prefix": "1990s PC point-and-click adventure game background, wide playable location,",
   "prompt_suffix": "",
   "negative_prompt": "modern, photo, 3d render, blurry, bad anatomy, deformed, portrait, tall",
   "lora_strength": 1.15,

@@ -2,7 +2,7 @@
   "_description": "ProjectMapper app style — dial in and lock settings here.",
   "_status": "placeholder — run dial_in.py to tune, then commit the final values",
   "workflow": "sd15_retro_pixel.json",
-  "prompt_prefix": "R3TR0, point and click adventure game background,",
+  "prompt_prefix": "1990s PC point-and-click adventure game background,",
   "prompt_suffix": "",
   "negative_prompt": "modern, photo, 3d render, blurry, bad anatomy, deformed",
   "lora_strength": 1.15,
